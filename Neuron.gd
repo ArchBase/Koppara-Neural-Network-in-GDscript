@@ -12,21 +12,20 @@ var parameters = {
 }
 
 func relu(x):
-	return max(0, x)
+	return max(0.0, x)
 	
 func sigmoid(x):
 	return 1 / (1 + exp(-x))
 
-func run_input(x:Array[int]):
-	pass
 	
 func _init(no_of_weights:int, activation:String):
 	config['activation'] = activation
 	config["no_of_weights"] = no_of_weights
 	for i in range(no_of_weights):
 		parameters['weight'].append(randf_range(config["min_weigth_random_value"], config["max_weight_random_value"]))
+	parameters['bias'] = randf_range(config["min_weigth_random_value"], config["max_weight_random_value"])
 
-func process_x(x:Array[int]):
+func process_x(x:Array):
 	if len(x) > config["no_of_weights"]:
 		print("no of inputs must be greater or equal no of weights")
 		return null
