@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://day45dwkn455d"]
+
+[ext_resource type="Script" path="res://Koppara-Neural-Network-in-GDscript/demo/RNN_language_model/rnn_lm.gd" id="1_8bb58"]
+
+[node name="RnnLm" type="CanvasLayer"]
+script = ExtResource("1_8bb58")
