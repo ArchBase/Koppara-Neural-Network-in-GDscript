@@ -45,7 +45,9 @@ func _calculate_batch_loss_avg_array(x_batch, y_batch):
 		avg_loss[i] = avg_loss[i] / len(x_batch)
 	
 	return avg_loss
+
+
 		
 	
 func train(dataset:Dataset):
-	pass
+	var current_batch_loss = _calculate_batch_loss_avg_array(dataset.x_batch, dataset.y_batch)
