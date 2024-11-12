@@ -27,4 +27,17 @@ func token_array_to_string(token_array:Array):
 func print_tokenized():
 	print(word_to_token)
 
+func read_from_file(file_path: String) -> String:
+	var file = FileAccess.open(file_path, FileAccess.READ)  # Open the file for reading
+	
+	if file:
+		var file_contents = file.get_as_text()  # Read the entire file as a string
+		file.close()  # Always close the file after reading
+		return file_contents
+	else:
+		print("Failed to open file")
+		return ""
+
+
+
 

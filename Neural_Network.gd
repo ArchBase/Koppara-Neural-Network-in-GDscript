@@ -22,3 +22,30 @@ func process_x(x_arg:Array):
 		x = layers[i].process_x(x)
 	return x
 
+func _calculate_loss(x, y):
+	var y_predicted = process_x(x)
+	var loss_array
+	
+	for i in range(len(y_predicted)):
+		loss_array.append(y[i] - y_predicted[i])
+	return loss_array
+	
+func _calculate_batch_loss_avg_array(x_batch, y_batch):
+	var avg_loss = []
+	avg_loss.resize(len(y_batch[0]))
+	for i in range(len(avg_loss)):
+		avg_loss[i] = 0
+		
+	for i in range(len(x_batch)):
+		var loss = _calculate_loss(x_batch[i], y_batch[i])
+		for j in range(len(loss)):
+			avg_loss[j] += loss[j]
+	
+	for i in range(len(x_batch)):
+		avg_loss[i] = avg_loss[i] / len(x_batch)
+	
+	return avg_loss
+		
+	
+func train(dataset:Dataset):
+	pass
