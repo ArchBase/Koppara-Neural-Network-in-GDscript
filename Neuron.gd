@@ -1,8 +1,8 @@
 class_name Neuron
 
 var config = {
-	"max_weight_random_value": 10.0,
-	"min_weigth_random_value": -10.0,
+	"max_weight_random_value": 100.0,
+	"min_weigth_random_value": -100.0,
 	"no_of_weights": 0,
 	"activation":"relu"
 }

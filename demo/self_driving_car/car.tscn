@@ -12,5 +12,8 @@ offset_left = 49.0
 offset_top = 44.0
 offset_right = 1097.0
 offset_bottom = 600.0
+text = "Training is under progress.
+ please wait.
+click here once you see \"training complete\" message in output terminal to see training logs here."
 
 [connection signal="train_complete" from="." to="." method="_on_train_complete"]
