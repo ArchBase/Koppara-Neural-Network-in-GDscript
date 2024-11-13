@@ -13,3 +13,8 @@ func format_for_rnn(array, rnn_input_length:int, rnn_output_length:int):
 	print("formated dataset for rnn")
 
 
+func set_batch_mode(s:String):
+	match s:
+		"no batch":
+			x_batch = x
+			y_batch = y
