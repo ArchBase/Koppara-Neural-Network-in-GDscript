@@ -1,6 +1,7 @@
 class_name Neural_Network
 
 var layers:Array
+var prev_loss = 0
 
 
 func _init():
@@ -24,7 +25,7 @@ func process_x(x_arg:Array):
 
 func _calculate_loss(x, y):
 	var y_predicted = process_x(x)
-	var loss_array
+	var loss_array = []
 	
 	for i in range(len(y_predicted)):
 		loss_array.append(y[i] - y_predicted[i])
@@ -35,7 +36,7 @@ func _calculate_loss(x, y):
 	
 	return sum/loss_array.size()
 	
-func _calculate_batch_loss_avg_array(x_batch, y_batch):
+func _calculate_batch_loss(x_batch, y_batch):
 	var loss = []
 	
 	for i in range(len(x_batch)):
@@ -51,5 +52,48 @@ func _calculate_batch_loss_avg_array(x_batch, y_batch):
 		
 	
 func get_loss_on_batch(dataset:Dataset):
-	var current_batch_loss = _calculate_batch_loss_avg_array(dataset.x_batch, dataset.y_batch)
+	var current_batch_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
 	return current_batch_loss
+
+func _apply_random_variation(learning_rate):
+	pass
+
+func _apply_same_variation(learing_rate):
+	pass
+
+func _apply_saved_variation():
+	pass
+
+func _save_variation():
+	pass
+
+func _negate_saved_variation():
+	pass
+
+func train(epochs, learning_rate, dataset:Dataset):
+	prev_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
+	_apply_random_variation(learning_rate)
+	_save_variation()
+	
+	for i in range(epochs):
+		_apply_saved_variation()
+		var new_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
+		if new_loss < prev_loss:
+			_save_variation()
+			prev_loss = new_loss
+		else:
+			_apply_random_variation(learning_rate)
+			_save_variation()
+		
+		
+		
+		
+			
+			
+		
+	
+	
+	
+	
+	
+	
