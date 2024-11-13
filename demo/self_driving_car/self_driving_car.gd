@@ -1,8 +1,27 @@
 extends Node
 
+var train_thread:Thread
+var nn
+var dt
+var out
+var edit_text:CodeEdit
+
+signal train_complete
+
+func train():
+	print("model output before training: ", nn.process_x([1, 1]))
+	
+	out = nn.train(10000, 0.01, dt)
+	edit_text.text = out
+	print("model output after training: ", nn.process_x([1, 1]))
+	emit_signal("train_complete")
+
 func _ready():
-	var nn = Neural_Network.new()
-	var dt = Dataset.new()
+	edit_text = get_node("CanvasLayer/CodeEdit")
+	nn = Neural_Network.new()
+	dt = Dataset.new()
+	
+	train_thread = Thread.new()
 	
 	nn.add_input_dense(5, 2, 'sig')
 	nn.add_dense(2, 'sig')
@@ -11,10 +30,16 @@ func _ready():
 	dt.set_y([[0, 0], [0, 1], [1, 0], [1, 1]])
 	
 	dt.set_batch_mode("no batch")
+	train_thread.start(train)
+
+
+
+func _exit_tree():
+	train_thread.wait_to_finish()
 	
-	print("model output before training: ", nn.process_x([0, 1]))
-	
-	var out = nn.train(10000, 0.01, dt)
-	
-	print("model output after training: ", nn.process_x([0, 1]))
+
+
+
+
+func _on_train_complete():
 	$CanvasLayer/CodeEdit.text = out

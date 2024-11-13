@@ -12,3 +12,5 @@ offset_left = 49.0
 offset_top = 44.0
 offset_right = 1097.0
 offset_bottom = 600.0
+
+[connection signal="train_complete" from="." to="." method="_on_train_complete"]
