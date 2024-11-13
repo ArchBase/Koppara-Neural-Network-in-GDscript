@@ -28,26 +28,28 @@ func _calculate_loss(x, y):
 	
 	for i in range(len(y_predicted)):
 		loss_array.append(y[i] - y_predicted[i])
-	return loss_array
+	
+	var sum=0
+	for each in loss_array:
+		sum += each
+	
+	return sum/loss_array.size()
 	
 func _calculate_batch_loss_avg_array(x_batch, y_batch):
-	var avg_loss = []
-	avg_loss.resize(len(y_batch[0]))
-	for i in range(len(avg_loss)):
-		avg_loss[i] = 0
-		
-	for i in range(len(x_batch)):
-		var loss = _calculate_loss(x_batch[i], y_batch[i])
-		for j in range(len(loss)):
-			avg_loss[j] += loss[j]
+	var loss = []
 	
 	for i in range(len(x_batch)):
-		avg_loss[i] = avg_loss[i] / len(x_batch)
+		loss.append(_calculate_loss(x_batch[i], y_batch[i]))
 	
-	return avg_loss
+	var sum=0
+	for each in loss:
+		sum += each
+	
+	return sum/loss.size()
 
 
 		
 	
-func train(dataset:Dataset):
+func get_loss_on_batch(dataset:Dataset):
 	var current_batch_loss = _calculate_batch_loss_avg_array(dataset.x_batch, dataset.y_batch)
+	return current_batch_loss
