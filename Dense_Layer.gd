@@ -22,5 +22,27 @@ func process_x(x:Array):
 func get_no_of_neurons():
 	return no_of_neurons
 
+func apply_random_variation(learning_rate):
+	for i in range(len(neurons)):
+		neurons[i].apply_random_variation(learning_rate)
 
+func save_variation():
+	for i in range(len(neurons)):
+		neurons[i].save_variation()
+
+func apply_saved_variation():
+	for i in range(len(neurons)):
+		neurons[i].apply_saved_variation()
+
+func restore_weights():
+	for i in range(len(neurons)):
+		neurons[i].restore_weights()
+
+func commit_weights():
+	for i in range(len(neurons)):
+		neurons[i].commit_weights()
+
+func restore_last_commit():
+	for i in range(len(neurons)):
+		neurons[i].restore_last_commit()
 

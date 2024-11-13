@@ -1,8 +1,8 @@
 class_name Neuron
 
 var config = {
-	"max_weight_random_value": 5.0,
-	"min_weigth_random_value": -5.0,
+	"max_weight_random_value": 10.0,
+	"min_weigth_random_value": -10.0,
 	"no_of_weights": 0,
 	"activation":"relu"
 }
@@ -10,6 +10,13 @@ var parameters = {
 	"weight":[],
 	"bias":0
 }
+
+var weight_variation = []
+var bias_variation = 0
+var restore_weight = []
+var restore_bias = 0
+var commit_weight = []
+var commit_bias = 0
 
 func relu(x):
 	return max(0.0, x)
@@ -39,4 +46,38 @@ func process_x(x:Array):
 		"sig":
 			result = sigmoid(result)
 	return result
+
+func apply_random_variation(learning_rate):
+	weight_variation = []
+	restore_weight = parameters["weight"]
+	restore_bias = parameters["bias"]
+	for i in range(len(parameters["weight"])):
+		var variation = randf_range(-learning_rate, learning_rate)
+		weight_variation.append(variation)
+		parameters["weight"][i] += weight_variation[i]
+	bias_variation = randf_range(-learning_rate, learning_rate)
+	parameters["bias"] += bias_variation
+
+func save_variation():
+	return
+
+func apply_saved_variation():
+	restore_weight = parameters["weight"]
+	restore_bias = parameters["bias"]
+	for i in range(len(parameters["weight"])):
+		parameters["weight"][i] += weight_variation[i]
+	parameters["bias"] += bias_variation
+	
+func restore_weights(): 
+	parameters["weights"] = restore_weight
+	parameters["bias"] = restore_bias
+
+
+func commit_weights():
+	commit_weight = parameters["weight"].duplicate(true)
+	commit_bias = parameters["bias"]
+
+func restore_last_commit():
+	parameters["weight"] = commit_weight.duplicate(true)
+	parameters["bias"] = commit_bias
 

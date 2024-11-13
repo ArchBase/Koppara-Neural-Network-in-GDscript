@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdsr57w2t3mrm"]
+
+[ext_resource type="Script" path="res://Koppara-Neural-Network-in-GDscript/demo/self_driving_car/self_driving_car.gd" id="1_83n40"]
+
+[node name="Car" type="Node2D"]
+script = ExtResource("1_83n40")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CodeEdit" type="CodeEdit" parent="CanvasLayer"]
+offset_left = 49.0
+offset_top = 44.0
+offset_right = 1097.0
+offset_bottom = 600.0
