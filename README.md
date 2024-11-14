@@ -1,31 +1,46 @@
-# Koppara-Neural Network in GDscript
- Koppara library with its framework allows you to implment fullly functional neural networks, ML models etc. in Godot natively.
- ## Possibility💪(may not  be practical)
-  * Language Models
-  * Computer vision models
-  * Voice recognition models
- ## Things included in demo✔️
-  * Self driving simple car
-  * Simple RNN based Language Model
+# 🌌 Koppara - Neural Network Library in GDScript
+**Koppara** is a framework that enables the implementation of fully functional neural networks, machine learning models, and more—all natively within Godot.
 
-# How to use Koppara❓
- Just copy paste or clone this repo to res:// of your godot project
- Use any demo as a reference to implement and train your model
+## 🧠 Possibilities (Experimental)
+Although some applications may be challenging, Koppara holds the potential for implementing:
+- **Language Models**
+- **Computer Vision Models**
+- **Voice Recognition Models**
 
-# How this works⚙️
- ## Architecture
-  Koppara uses sequential layer by layer, neuron by neuron architecture to implement fully functional neural networks
- ## Training
-  Koppara implements a completely different optimization algorithm
-  1 . Optimizer tries a random variation to all the weights
-  2 . If model was improved after variation, save same variation gradient for next iteration
-  3 . If model was not improved, try negated variation in next iteration, restore previous weights
-  4 . If negated variation is also not improving, generate new random gradient for next iteration, restore previous weights
-  4 . repeat
-  
-# Should you use Koppara?🤔
- Koppara is not fully developed and contains many bugs which are not even discovered, so you can't consider y=this as a production ready library/framework
- 
-# Contribute to Koppara😊
- Contributions are welcome, let's make this skyhigh
+## 🚗 Demo Features
+The Koppara demo includes:
+- **Self-Driving Simple Car**: An autonomous driving simulation using basic neural networks.
+- **RNN-Based Language Model**: A simple Recurrent Neural Network for basic language generation.
 
+---
+
+## 🔧 How to Use Koppara
+1. **Clone or Copy** this repository to `res://` in your Godot project.
+2. **Use the Demos** as a reference to implement and train your own models.
+
+---
+
+## ⚙️ How Koppara Works
+
+### 📐 Architecture
+Koppara utilizes a **sequential, layer-by-layer, neuron-by-neuron architecture** to build neural networks from the ground up, providing flexibility for custom implementations.
+
+### 📈 Training Process
+Koppara introduces a unique optimization approach, distinct from traditional algorithms:
+
+1. **Random Variation**: The optimizer applies random variations to all weights.
+2. **Gradient Selection**: If the model improves, this gradient is saved for the next iteration.
+3. **Negated Variation**: If no improvement occurs, a negated variation is attempted in the next iteration, and previous weights are restored.
+4. **Revert & Retry**: If the negated variation also fails to improve the model, a new random gradient is generated, and weights are restored.
+5. **Repeat**: This cycle continues, iterating until optimal performance is reached.
+
+---
+
+## ❓ Should You Use Koppara?
+
+Koppara is in early development, with known and undiscovered bugs. It’s not production-ready, but is suitable for experimentation, learning, and testing in the Godot environment.
+
+---
+
+## 🙌 Contribute to Koppara
+We welcome contributions to help expand Koppara’s potential! Join us in pushing Koppara to new heights.
