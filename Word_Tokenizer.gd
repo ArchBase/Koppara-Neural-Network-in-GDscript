@@ -17,13 +17,19 @@ func string_to_token_array(s=""):
 	var token_array = []
 	s = s.split(" ")
 	for each_word in s:
-		token_array.append(word_to_token[each_word])
+		if each_word in word_to_token.keys():
+			token_array.append(word_to_token[each_word])
+		else:
+			token_array.append(-1)
 	return token_array
 
 func token_array_to_string(token_array:Array):
 	var word_array = []
 	for each_token in token_array:
-		word_array.append(token_to_word[each_token])
+		if each_token in token_to_word.keys():
+			word_array.append(token_to_word[each_token])
+		else:
+			word_array.append("<UNKNOWN>")
 	return " ".join(word_array)
 
 func print_tokenized():

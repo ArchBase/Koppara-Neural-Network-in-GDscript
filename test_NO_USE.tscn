@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5vjt2t54v2xi"]
+
+[ext_resource type="Script" path="res://Koppara-Neural-Network-in-GDscript/test_NO_USE.gd" id="1_65mre"]
+
+[node name="TestNoUse" type="Node2D"]
+script = ExtResource("1_65mre")

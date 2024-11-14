@@ -86,13 +86,21 @@ func _negate_and_apply_last_gradient(learning_rate):
 
 
 
-func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter):
-	progress_meter.total = epochs
+func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter=null):
+	if progress_meter == null:
+		progress_meter = Progress_Meter.new()
+	progress_meter.total = epochs + 1
 	progress_meter.start = 0
+	progress_meter.set_progress(1)
+	progress_meter.add_progress(0.1)
 	prev_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
+	progress_meter.add_progress(0.2)
 	_apply_random_variation(learning_rate)
+	progress_meter.add_progress(0.3)
 	_save_variation()
+	progress_meter.add_progress(0.2)
 	_commit_weights()
+	progress_meter.add_progress(0.2)
 	
 	var output = ""
 	var have_improved = false
@@ -101,12 +109,16 @@ func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter
 	
 	
 	for i in range(epochs):
-		progress_meter.set_progress(i)
+		progress_meter.log_text = output
+		progress_meter.set_progress(i+1)
 		output += out + "\n"
 		out = "epochs: " + str(i)
-		progress_meter.set_progress(i+1)
+		#progress_meter.set_progress(i+1)
+		progress_meter.add_progress(0.1)
 		_apply_saved_variation()
+		progress_meter.add_progress(0.3)
 		var new_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
+		progress_meter.add_progress(0.3)
 		out += " new_loss: " + str(new_loss)
 		#print(new_loss)
 		if new_loss < prev_loss:
@@ -117,6 +129,7 @@ func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter
 			_save_variation()
 			prev_loss = new_loss
 			_commit_weights()
+			progress_meter.add_progress(0.3)
 		elif have_improved == true:
 			negate_count = 0
 			out += " not improving❌, restoring to: "
@@ -127,11 +140,13 @@ func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter
 			have_improved = false
 			_save_variation()
 			out += " generated new random variation🆕"
+			progress_meter.add_progress(0.3)
 		else:
 			if negate_count > negate_count_threshold:
 				out += " detected infinity negation loop,🚫"
 				have_improved = true
 				out += " will generate another random gradient"
+				progress_meter.add_progress(0.3)
 				continue
 			out += " not improving❌, restoring to: "
 			_restore_last_commit()
@@ -141,9 +156,12 @@ func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter
 			have_improved = false
 			_save_variation()
 			out += " negated current variation➖"
+			progress_meter.add_progress(0.3)
+		
 			
 	_restore_last_commit()
 	output += "\n\nbest loss: " + str(_calculate_batch_loss(dataset.x_batch, dataset.y_batch))
+	progress_meter.done = true
 	return output
 			
 		

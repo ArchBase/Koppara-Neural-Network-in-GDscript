@@ -6,6 +6,7 @@ var tz = Word_Tokenizer.new()
 var progress_meter = Progress_Meter.new()
 var t_thread = Thread.new()
 var bar:ProgressBar
+var out = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -35,12 +36,51 @@ func _ready():
 
 func train():
 	print("Training started")
-	var out = nn.train(5, 0.1, dt, progress_meter)
+	out = nn.train(100, 0.1, dt, progress_meter)
 	print("Training finished")
 	
 func _process(delta):
-	bar.max_value = progress_meter.total
-	bar.value = progress_meter.int_progress
+	
+	if progress_meter.done:
+		progress_meter.done = false
+		$CanvasLayer/CodeEdit.text = out
+		$CanvasLayer/ask.show()
+		$CanvasLayer/Label2.text = "Training complete"
+	else:
+		bar.max_value = progress_meter.total
+		bar.value = progress_meter.int_progress
+		$CanvasLayer/CodeEdit.text = progress_meter.log_text
+		
+		$CanvasLayer/CodeEdit.scroll_vertical = $CanvasLayer/CodeEdit.get_v_scroll_bar().max_value
 
 func _exit_tree():
 	t_thread.wait_to_finish()
+
+
+# response generation section
+func _find_index_from_probability_distribution(probability_distribution:Array):
+	var index = 0
+	var value = 0
+	for i in range(len(probability_distribution)):
+		if probability_distribution[i] > value:
+			value = probability_distribution[i]
+			index = i
+	return index
+
+func _on_ask_button_pressed():
+	var text = $CanvasLayer/ask/LineEdit.text
+	if text == "":
+		$CanvasLayer/ask/LineEdit.text = "First type your query here."
+		return
+	var tokenized_array = tz.string_to_token_array(text)
+	
+	for i in range(int($CanvasLayer/ask/LineEdit2.text)):
+		var y = nn.process_x(tokenized_array.slice(tokenized_array.size() - 5, tokenized_array.size()))
+		var y_token = _find_index_from_probability_distribution(y)
+		tokenized_array.append(y_token)
+	
+	$CanvasLayer/ask/CodeEdit2.text = tz.token_array_to_string(tokenized_array)	
+	
+
+
+

@@ -9,9 +9,9 @@ script = ExtResource("1_xsw7s")
 
 [node name="CodeEdit" type="CodeEdit" parent="CanvasLayer"]
 offset_left = 37.0
-offset_top = 59.0
+offset_top = 74.605
 offset_right = 1112.0
-offset_bottom = 602.0
+offset_bottom = 172.605
 placeholder_text = "Training under progress"
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
@@ -19,3 +19,54 @@ offset_left = 191.0
 offset_top = 18.0
 offset_right = 988.0
 offset_bottom = 45.0
+
+[node name="ask" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/ask"]
+offset_left = 234.0
+offset_top = 178.0
+offset_right = 924.0
+offset_bottom = 236.0
+placeholder_text = "Type your query here"
+
+[node name="LineEdit2" type="LineEdit" parent="CanvasLayer/ask"]
+offset_left = 234.0
+offset_top = 239.0
+offset_right = 924.0
+offset_bottom = 297.0
+placeholder_text = "Type length of words to be generated"
+
+[node name="ask Button" type="Button" parent="CanvasLayer/ask"]
+offset_left = 387.0
+offset_top = 301.0
+offset_right = 735.0
+offset_bottom = 368.0
+text = "Generate response"
+
+[node name="CodeEdit2" type="CodeEdit" parent="CanvasLayer/ask"]
+offset_left = 47.0
+offset_top = 409.0
+offset_right = 1100.0
+offset_bottom = 590.0
+text = "LM response"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 37.0
+offset_top = 49.0
+offset_right = 137.0
+offset_bottom = 72.0
+text = "Training log: "
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 37.0
+offset_top = 18.0
+offset_right = 181.0
+offset_bottom = 41.0
+text = "Training progress: "
+
+[connection signal="pressed" from="CanvasLayer/ask/ask Button" to="." method="_on_ask_button_pressed"]
