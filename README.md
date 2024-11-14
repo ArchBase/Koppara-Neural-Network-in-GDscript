@@ -44,3 +44,8 @@ Koppara is in early development, with known and undiscovered bugs. It’s not pr
 
 ## 🙌 Contribute to Koppara
 We welcome contributions to help expand Koppara’s potential! Join us in pushing Koppara to new heights.
+
+---
+
+## 💬 Join the Community
+For support and updates, join our Discord: [Koppara Discord](https://discord.gg/WZyyT5kMUk)
