@@ -2,7 +2,7 @@ class_name Neural_Network
 
 var layers:Array
 var prev_loss = 0
-var negate_count_threshold = 2
+var negate_count_threshold = 1
 
 func _init():
 	pass

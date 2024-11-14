@@ -11,7 +11,7 @@ signal train_complete
 func train():
 	print("model output before training: ", nn.process_x([1, 1]))
 	
-	out = nn.train(10000, 0.01, dt)
+	out = nn.train(10000, 0.1, dt)
 	edit_text.text = out
 	print("training complete")
 	print("model output after training: ", nn.process_x([1, 1]))
