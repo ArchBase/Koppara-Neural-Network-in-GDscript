@@ -19,7 +19,8 @@
   Koppara implements a completely different optimization algorithm
   1 . Optimizer tries a random variation to all the weights
   2 . If model was improved after variation, save same variation gradient for next iteration
-  3 . If model was not improved, generate another random gradient for next iteration, restore previous weights
+  3 . If model was not improved, try negated variation in next iteration, restore previous weights
+  4 . If negated variation is also not improving, generate new random gradient for next iteration, restore previous weights
   4 . repeat
   
 # Should you use Koppara?🤔
