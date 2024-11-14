@@ -7,6 +7,7 @@ var progress_meter = Progress_Meter.new()
 var t_thread = Thread.new()
 var bar:ProgressBar
 var out = ""
+var done = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -36,22 +37,25 @@ func _ready():
 
 func train():
 	print("Training started")
-	out = nn.train(100, 0.1, dt, progress_meter)
+	out = nn.train(10000, 0.1, dt, progress_meter)
 	print("Training finished")
 	
 func _process(delta):
 	
+	$CanvasLayer/Label3.text = "FPS: " + str(Engine.get_frames_per_second())
 	if progress_meter.done:
 		progress_meter.done = false
 		$CanvasLayer/CodeEdit.text = out
 		$CanvasLayer/ask.show()
 		$CanvasLayer/Label2.text = "Training complete"
-	else:
+		done = true
+	
+	if not done:
 		bar.max_value = progress_meter.total
 		bar.value = progress_meter.int_progress
-		$CanvasLayer/CodeEdit.text = progress_meter.log_text
+		#$CanvasLayer/CodeEdit.text = progress_meter.log_text
 		
-		$CanvasLayer/CodeEdit.scroll_vertical = $CanvasLayer/CodeEdit.get_v_scroll_bar().max_value
+		#$CanvasLayer/CodeEdit.scroll_vertical = $CanvasLayer/CodeEdit.get_v_scroll_bar().max_value
 
 func _exit_tree():
 	t_thread.wait_to_finish()
