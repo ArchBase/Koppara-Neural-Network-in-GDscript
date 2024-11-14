@@ -7,6 +7,8 @@ var token_index = 0
 func tokenize(s=""):
 	s = s.split(" ")
 	for each_word in s:
+		if each_word in token_to_word.values():
+			continue
 		token_to_word[token_index] = each_word
 		word_to_token[each_word] = token_index
 		token_index += 1

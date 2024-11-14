@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://do22r1eqk56xf"]
+
+[ext_resource type="Script" path="res://Koppara-Neural-Network-in-GDscript/demo/rnn_language_model/rnn_lm.gd" id="1_xsw7s"]
+
+[node name="RnnLm" type="Node2D"]
+script = ExtResource("1_xsw7s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CodeEdit" type="CodeEdit" parent="CanvasLayer"]
+offset_left = 37.0
+offset_top = 59.0
+offset_right = 1112.0
+offset_bottom = 602.0
+placeholder_text = "Training under progress"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 191.0
+offset_top = 18.0
+offset_right = 988.0
+offset_bottom = 45.0

@@ -5,11 +5,22 @@ var y:Array
 
 var x_batch:Array
 var y_batch:Array
+	
 
-func format_for_rnn(array, rnn_input_length:int, rnn_output_length:int):
+func format_for_rnn(array, rnn_input_length:int, token_index:int):
 	for i in range(len(array)-rnn_input_length):
 		x.append(array.slice(i, i+rnn_input_length))
-		y.append(array.slice(i+rnn_input_length, i+rnn_input_length+rnn_output_length))
+		
+		var y_token = i+rnn_input_length
+		var y_p = []
+		for j in range(token_index):
+			if j == y_token:
+				y_p.append(1)
+			else:
+				y_p.append(0)
+		
+		y.append(y_p)
+		#y.append(array.slice(i+rnn_input_length, i+rnn_input_length+rnn_output_length))
 	print("formated dataset for rnn")
 
 
