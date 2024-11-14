@@ -86,7 +86,9 @@ func _negate_and_apply_last_gradient(learning_rate):
 
 
 
-func train(epochs, learning_rate, dataset:Dataset):
+func train(epochs, learning_rate, dataset:Dataset, progress_meter:Progress_Meter):
+	progress_meter.total = epochs
+	progress_meter.start = 0
 	prev_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
 	_apply_random_variation(learning_rate)
 	_save_variation()
@@ -99,8 +101,10 @@ func train(epochs, learning_rate, dataset:Dataset):
 	
 	
 	for i in range(epochs):
+		progress_meter.set_progress(i)
 		output += out + "\n"
 		out = "epochs: " + str(i)
+		progress_meter.set_progress(i+1)
 		_apply_saved_variation()
 		var new_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
 		out += " new_loss: " + str(new_loss)
