@@ -81,3 +81,9 @@ func restore_last_commit():
 	parameters["weight"] = commit_weight.duplicate(true)
 	parameters["bias"] = commit_bias
 
+func _negate_and_apply_last_gradient(learning_rate):
+	for i in range(len(weight_variation)):
+		weight_variation[i] = -weight_variation[i]
+	bias_variation = - bias_variation
+	apply_saved_variation()
+

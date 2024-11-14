@@ -45,4 +45,8 @@ func commit_weights():
 func restore_last_commit():
 	for i in range(len(neurons)):
 		neurons[i].restore_last_commit()
+	
+func _negate_and_apply_last_gradient(learning_rate):
+	for i in range(len(neurons)):
+		neurons[i]._negate_and_apply_last_gradient(learning_rate)
 

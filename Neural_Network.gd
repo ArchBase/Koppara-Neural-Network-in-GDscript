@@ -2,7 +2,7 @@ class_name Neural_Network
 
 var layers:Array
 var prev_loss = 0
-
+var negate_count_threshold = 2
 
 func _init():
 	pass
@@ -78,6 +78,13 @@ func _commit_weights():
 func _restore_last_commit():
 	for i in range(len(layers)):
 		layers[i].restore_last_commit()
+		
+
+func _negate_and_apply_last_gradient(learning_rate):
+	for i in range(len(layers)):
+		layers[i]._negate_and_apply_last_gradient(learning_rate)
+
+
 
 func train(epochs, learning_rate, dataset:Dataset):
 	prev_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
@@ -86,27 +93,51 @@ func train(epochs, learning_rate, dataset:Dataset):
 	_commit_weights()
 	
 	var output = ""
+	var have_improved = false
+	var negate_count = 0
+	var out = " Training started"
+	
 	
 	for i in range(epochs):
-		var out = "epochs: " + str(i)
+		output += out + "\n"
+		out = "epochs: " + str(i)
 		_apply_saved_variation()
 		var new_loss = _calculate_batch_loss(dataset.x_batch, dataset.y_batch)
 		out += " new_loss: " + str(new_loss)
 		#print(new_loss)
 		if new_loss < prev_loss:
-			out += " model is improving, weight: "
+			negate_count = 0
+			have_improved = true
+			out += " improving✅, weight: "
 			out += str(layers[0].neurons[0].parameters["weight"][0])
 			_save_variation()
 			prev_loss = new_loss
 			_commit_weights()
-		else:
-			out += " model is not improving, restoring to: "
+		elif have_improved == true:
+			negate_count = 0
+			out += " not improving❌, restoring to: "
 			#_restore_previous_weights()
 			_restore_last_commit()
 			out += str(layers[0].neurons[0].parameters["weight"][0])
 			_apply_random_variation(learning_rate)
+			have_improved = false
 			_save_variation()
-		output += out + "\n"
+			out += " generated new random variation🆕"
+		else:
+			if negate_count > negate_count_threshold:
+				out += " detected infinity negation loop,🚫"
+				have_improved = true
+				out += " will generate another random gradient"
+				continue
+			out += " not improving❌, restoring to: "
+			_restore_last_commit()
+			out += str(layers[0].neurons[0].parameters["weight"][0])
+			_negate_and_apply_last_gradient(learning_rate)
+			negate_count += 1
+			have_improved = false
+			_save_variation()
+			out += " negated current variation➖"
+			
 	_restore_last_commit()
 	output += "\n\nbest loss: " + str(_calculate_batch_loss(dataset.x_batch, dataset.y_batch))
 	return output
