@@ -1,15 +1,16 @@
 # Koppara-Neural Network in GDscript
  Koppara library with its framework allows you to implment fullly functional neural networks, ML models etc. in Godot natively.
- ## Possibility💪
+ ## Possibility💪(may not  be practical)
   * Language Models
   * Computer vision models
   * Voice recognition models
  ## Things included in demo✔️
   * Self driving simple car
+  * Simple RNN based Language Model
 
 # How to use Koppara❓
  Just copy paste or clone this repo to res:// of your godot project
- Use demo/self_driving_car.gd as a reference to implement and train your model
+ Use any demo as a reference to implement and train your model
 
 # How this works⚙️
  ## Architecture
